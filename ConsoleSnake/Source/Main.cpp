@@ -23,7 +23,8 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	// For food random spawn.
-	srand((uint16_t)time(0));
+	auto now = std::chrono::high_resolution_clock::now();
+	srand((uint16_t)now.time_since_epoch().count());
 
 	App snakeGameApp(SnakeGameParameters);
 	snakeGameApp.Start();

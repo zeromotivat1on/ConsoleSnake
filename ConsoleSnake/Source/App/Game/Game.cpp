@@ -218,8 +218,7 @@ void Game::ConsumeGameOverInput()
 
 bool Game::AddActorToMap(const IntVector2& location, const CellType type)
 {
-	std::unique_ptr<Actor> actor = std::make_unique<Actor>(location, type);
-	return GameMap->AddActor(actor);
+	return GameMap->AddActor(std::make_unique<Actor>(location, type));
 }
 
 bool Game::GenerateFoodOnMap()

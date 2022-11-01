@@ -121,12 +121,20 @@ bool Map::AddActor(std::unique_ptr<Actor>& actor)
 	return true;
 }
 
+bool Map::AddActor(std::unique_ptr<Actor>&& actor) 
+{
+	if (IsOutOfBounds(actor.get()->GetLocation())) return false;
+
+	Actors.emplace_back(std::move(actor));
+
+	return true;
+}
+
 bool Map::AddActor(const IntVector2& location, const CellType type)
 {
 	if (IsOutOfBounds(location)) return false;
 
-	std::unique_ptr<Actor> actor = std::make_unique<Actor>(location, type);
-	Actors.emplace_back(std::move(actor));
+	Actors.emplace_back(std::make_unique<Actor>(location, type));
 
 	return true;
 }

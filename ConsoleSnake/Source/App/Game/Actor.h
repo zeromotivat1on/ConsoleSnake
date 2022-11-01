@@ -9,8 +9,6 @@ class Actor : public Cell
 public:
 	Actor() = default;
 	Actor(const IntVector2& location, const CellType type = CellType::CT_Empty);
-	Actor(Actor&& other);
-	Actor(Actor*&& other);
 	virtual ~Actor() = default;
 
 	virtual void Reset() override;
@@ -21,9 +19,6 @@ protected:
 
 public:
 	void SetCollidedCell(std::unique_ptr<Cell>& collidedCell) { CollidedCell = std::move(collidedCell); }
-
-public:
-	Actor& operator=(Actor&& other);
 
 protected:
 	// Validate actor position through collision detection.

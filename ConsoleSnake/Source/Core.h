@@ -2,10 +2,11 @@
 
 #include <vector>
 #include <memory>
+#include <chrono>
 #include <iostream>
 
 #include <conio.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "SMath.h"
 #include "ConsoleEdit.h"

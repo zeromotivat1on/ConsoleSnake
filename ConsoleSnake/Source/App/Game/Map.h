@@ -49,17 +49,17 @@ public:
 
 	MapType& GetMapBlueprint() { return MapBlueprint; }
 
+	void SetPlayerSnake(std::shared_ptr<Snake>& snake) { PlayerSnake = snake; }
+
+	// Get reference to actors on map.
+	auto& GetActors() { return Actors; }
+
 	// Is a cell at given location a wall?
 	// Check is using cell type.
 	bool IsWall(const IntVector2& location) const;
 
 	// Is a cell at given location is out of bounds (on or further than wall)?
 	bool IsOutOfBounds(const IntVector2& location) const;
-
-	void SetPlayerSnake(std::shared_ptr<Snake>& snake) { PlayerSnake = snake; }
-
-	// Get reference to actors on map.
-	auto& GetActors() { return Actors; }
 
 protected:
 	// Create map cells with appropriate types and textures.
@@ -105,6 +105,7 @@ public:
 	 * @return false - failure of actor addition.
 	 */
 	bool AddActor(std::unique_ptr<Actor>& actor);
+	bool AddActor(std::unique_ptr<Actor>&& actor);
 	bool AddActor(const IntVector2& location, const CellType type = CellType::CT_Empty);
 
 	/**

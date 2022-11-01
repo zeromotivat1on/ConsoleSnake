@@ -9,5 +9,5 @@ void Cell::Reset()
 {
 	Location = IntVector2::ZeroVector;
 	Type = CellType::CT_Empty;
-	Texture = ' ';
+	Texture = (char)CellType::CT_Empty;
 }

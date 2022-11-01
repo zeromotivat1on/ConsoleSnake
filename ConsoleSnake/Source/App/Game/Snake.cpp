@@ -16,6 +16,7 @@ void Snake::Reset()
 	Velocity = IntVector2::ZeroVector;
 	IsDead = false;
 	Length = 0;
+
 	Body.clear();
 
 	Grow(Location, CellType::CT_SnakeHead);
@@ -69,13 +70,11 @@ void Snake::CollisionTick()
 	case CellType::CT_Food:
 	{
 		// Reset collided cell.
-		CollidedCell->SetLocation(IntVector2::ZeroVector);
-		CollidedCell->SetType(CellType::CT_Empty);
-		CollidedCell->SetTexture((char)CellType::CT_Empty);
+		CollidedCell->Reset();
 
-		// Snake body cell that 1 cell closer to head.
-		SnakeBodyCell* prevBodyCell = Body[Length - 1].get();
-		Grow(prevBodyCell->GetPrevLocation());
+		const SnakeBodyCell* lastBodyCell = Body[Length - 1].get();
+		Grow(lastBodyCell->GetPrevLocation());
+
 		break;
 	}
 
@@ -86,7 +85,6 @@ void Snake::CollisionTick()
 
 void Snake::Grow(const IntVector2& location, const CellType type)
 {
-	std::unique_ptr<SnakeBodyCell> bodyCell = std::make_unique<SnakeBodyCell>(location, type);
-	Body.emplace_back(std::move(bodyCell));
+	Body.emplace_back(std::make_unique<SnakeBodyCell>(location, type));
 	Length++;
 }

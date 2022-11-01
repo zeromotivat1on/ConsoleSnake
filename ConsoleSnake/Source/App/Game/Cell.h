@@ -5,10 +5,18 @@
 // Cell type with default textures.
 enum class CellType : uint8_t
 {
+	// No collision.
 	CT_Empty = ' ',
+
+	// Collision with player snake - game over.
 	CT_Wall = '#',
+
 	CT_SnakeHead = '0',
+
+	// Collision with player snake - game over.
 	CT_SnakeBody = 'o',
+
+	// Collision with player snake - snake grow, score increase.
 	CT_Food = '@'
 };
 
@@ -31,7 +39,7 @@ protected:
 	CellType Type = CellType::CT_Empty;
 
 	// Console view (character representation) of the cell.
-	char Texture = ' ';
+	char Texture = (char)CellType::CT_Empty;
 
 public:
 	IntVector2 GetLocation() const { return Location; }
@@ -47,8 +55,6 @@ public:
 	void SetTexture(char texture) { Texture = texture; }
 
 public:
-	Cell& operator=(Cell&& other);
-
 	bool operator==(const Cell& other) { return Location == other.Location && Type == other.Type && Texture == other.Texture; }
 	bool operator==(const Cell* other) { return Location == other->Location && Type == other->Type && Texture == other->Texture; }
 
