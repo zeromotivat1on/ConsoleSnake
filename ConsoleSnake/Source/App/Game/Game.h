@@ -1,28 +1,41 @@
 #pragma once
 
 #include "Core.h"
+#include "App/AppComponent.h"
 #include "Game/Cell.h"
 #include "Game/Map.h"
 
 class Snake;
+class Food;
 
 // Top layer of snake-game logic.
-class Game final
+class Game final : public IAppComponent
 {
 public:
 	Game() = default;
+	Game(std::unique_ptr<Map> map, std::unique_ptr<Snake> snake);
 	Game(const IntVector2& mapSize, const IntVector2& snakeInitialLocation);
-	~Game() = default;
+	~Game();
 
 private:
 	// Game map with actors.
 	std::unique_ptr<Map> GameMap = nullptr;
 
-	// Snake under players control.
+	// Snake under player control.
 	std::shared_ptr<Snake> PlayerSnake = nullptr;
 
 	// Snake game state.
 	GameState GameState = GameState::GS_Play;
+
+	// Player score can be increased by eating fruit.
+	int PlayerScore = 0;
+
+	// Offset for additional game info (score etc.) that
+	// is placed to right of the game map.
+	int SecondScreenOffsetX = 0;
+
+	// Threads.
+	std::vector<std::thread> Workers;
 
 public:
 	Map* GetMap() const { return GameMap.get(); }
@@ -41,6 +54,9 @@ private:
 	// Update and display game map with its actors.
 	void RenderGameMap();
 
+	// Update and display second screen (score etc.).
+	void RenderSecondScreen();
+
 	// Handle player input during game.
 	void ConsumeGameInput();
 
@@ -51,12 +67,16 @@ private:
 	void CheckSnakeCollision();
 
 	// Check game over conditions.
-	void CheckEndGame();
+	// @return true - game in GameOver state.
+	// @return false - game NOT in GameOver state.
+	bool CheckEndGame();
 
 	// Add actor to map actors array.
+	template <typename T> //
 	bool AddActorToMap(const IntVector2& location, const CellType type = CellType::CT_Empty);
 
 	// Generate food at random place on map.
+	template <typename T = Food> //
 	bool GenerateFoodOnMap();
 
 #pragma endregion GameTick

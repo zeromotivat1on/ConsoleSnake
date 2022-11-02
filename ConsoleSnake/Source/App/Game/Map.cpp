@@ -1,7 +1,6 @@
 #include "Map.h"
-#include "Food.h"
-#include "Snake.h"
-#include "Helpers.h"
+#include "Game/Food.h"
+#include "Game/Snake.h"
 
 Map::Map(const IntVector2& size) //
 	: Size(size), Height(size.Y), Width(size.X)
@@ -49,7 +48,12 @@ bool Map::IsWall(const IntVector2& location) const
 
 bool Map::IsOutOfBounds(const IntVector2& location) const
 {
-	return !IntVector2::WithinRange(location, 0, Width - 1, 0, Height - 1);
+	return !IntVector2::WithinRange(location, 0, Width - 1, 0, Height - 1, true);
+}
+
+bool Map::IsInsideMap(const IntVector2& location) const
+{
+	return IntVector2::WithinRange(location, 0, Width - 1, 0, Height - 1);
 }
 
 bool Map::ShouldBeWall(const IntVector2& location) const
@@ -75,10 +79,17 @@ void Map::BlueprintActors()
 void Map::BlueprintSnake()
 {
 	Snake* snake = PlayerSnake.get();
+	if (!snake) return;
+
 	for (const auto& bodyPart : snake->GetBody())
 	{
-		SnakeBodyCell* bodyPartCell = bodyPart.get();
-		MapBlueprint[bodyPartCell->GetY()][bodyPartCell->GetX()] = bodyPartCell->GetTexture();
+		const SnakeBodyCell* bodyPartCell = bodyPart.get();
+		int bodyPartY = bodyPartCell->GetY();
+		int bodyPartX = bodyPartCell->GetX();
+
+		if (IsOutOfBounds(IntVector2(bodyPartX, bodyPartY))) continue;
+
+		MapBlueprint[bodyPartY][bodyPartX] = bodyPartCell->GetTexture();
 	}
 }
 
@@ -92,15 +103,19 @@ void Map::Render()
 
 void Map::Print()
 {
+	std::stringstream mapStream;
+
 	for (int y = 0; y < Height; ++y)
 	{
 		for (int x = 0; x < Width; ++x)
 		{
-			std::cout << MapBlueprint[y][x]; //
+			mapStream << MapBlueprint[y][x]; //
 		}
 
-		std::cout << '\n';
+		mapStream << '\n';
 	}
+
+	ConsoleRenderer::RenderVertically(mapStream, IntVector2::ZeroVector);
 }
 
 bool Map::DrawMapCellTexture(const IntVector2& location, const char texture)
@@ -112,36 +127,27 @@ bool Map::DrawMapCellTexture(const IntVector2& location, const char texture)
 	return true;
 }
 
-bool Map::AddActor(std::unique_ptr<Actor>& actor)
+bool Map::AddActor(std::shared_ptr<Actor> actor)
 {
-	if (IsOutOfBounds(actor.get()->GetLocation())) return false;
+	if (!IsInsideMap(actor.get()->GetLocation())) return false;
 
-	Actors.emplace_back(std::move(actor));
-
-	return true;
-}
-
-bool Map::AddActor(std::unique_ptr<Actor>&& actor) 
-{
-	if (IsOutOfBounds(actor.get()->GetLocation())) return false;
-
-	Actors.emplace_back(std::move(actor));
+	Actors.emplace_back(actor);
 
 	return true;
 }
 
 bool Map::AddActor(const IntVector2& location, const CellType type)
 {
-	if (IsOutOfBounds(location)) return false;
+	if (!IsInsideMap(location)) return false;
 
-	Actors.emplace_back(std::make_unique<Actor>(location, type));
+	Actors.emplace_back(std::make_shared<Actor>(location, type));
 
 	return true;
 }
 
 bool Map::RemoveActorByLocation(const IntVector2& location)
 {
-	if (IsOutOfBounds(location)) return false;
+	if (!IsInsideMap(location)) return false;
 
 	auto removeIt = Actors.begin();
 	for (auto it = Actors.begin(); it != Actors.end(); ++it)
@@ -154,4 +160,14 @@ bool Map::RemoveActorByLocation(const IntVector2& location)
 
 	Actors.erase(removeIt);
 	return true;
+}
+
+std::shared_ptr<Actor> Map::GetActorByLocation(const IntVector2& location)
+{
+	for (auto& actor : Actors) 
+	{
+		if (location == actor.get()->GetLocation()) return actor;
+	}
+
+	return nullptr;
 }

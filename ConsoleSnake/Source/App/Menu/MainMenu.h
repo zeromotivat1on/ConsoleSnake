@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Core.h"
+#include "App/AppComponent.h"
 
 // Primary player interaction with the snake game app.
-class MainMenu
+class MainMenu : public IAppComponent
 {
 public:
 	MainMenu() = default;
@@ -17,11 +18,17 @@ private:
 	 */
 	MainMenuState MainMenuState = MainMenuState::MMS_Idle;
 
+	// Menu horizontal offset.
+	int OffsetX = 3;
+
+	// Menu vertical offset.
+	int OffsetY = 1;
+
 public:
 	enum class MainMenuState GetMainMenuState() const { return MainMenuState; }
 
 	// Get app state that corresponds to main menu state.
-	AppState GetCorrespondingAppState() const;
+	virtual AppState GetCorrespondingAppState() const override;
 
 private:
 	// Update and display main menu screen.
@@ -32,8 +39,8 @@ private:
 
 public:
 	// Perfrom main menu tick.
-	void Tick();
+	virtual void Tick() override;
 
 	// Start the main menu loop
-	void Start();
+	virtual void Start() override;
 };

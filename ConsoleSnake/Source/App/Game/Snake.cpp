@@ -8,7 +8,7 @@ Snake::Snake(const IntVector2& location) : Actor(location, CellType::CT_SnakeHea
 	Grow(location, CellType::CT_SnakeHead);
 }
 
-void Snake::Reset() 
+void Snake::Reset()
 {
 	Actor::Reset();
 
@@ -30,7 +30,7 @@ void Snake::Tick()
 
 void Snake::MovementTick()
 {
-	if (Velocity == IntVector2::ZeroVector) return;
+	if (Velocity.IsZero()) return;
 
 	const IntVector2 prevHeadLocation = Location;
 	const IntVector2 movedHeadLocation = Location + Velocity;
@@ -53,8 +53,6 @@ void Snake::MovementTick()
 		Body[i + 1]->SetLocation(prevBodyCellPrevLocation);
 		Body[i + 1]->SetPrevLocation(bodyCellLocation);
 	}
-
-	//std::cout << '\n' << Velocity << ' ' << Location << '\n';
 }
 
 void Snake::CollisionTick()
@@ -62,8 +60,6 @@ void Snake::CollisionTick()
 	if (!CollidedCell) return;
 
 	const CellType collidedCellType = CollidedCell.get()->GetType();
-
-	IsDead = ShouldBeDead(collidedCellType);
 
 	switch (collidedCellType)
 	{
@@ -77,6 +73,12 @@ void Snake::CollisionTick()
 
 		break;
 	}
+
+	case CellType::CT_Wall:
+	case CellType::CT_SnakeBody:
+		Velocity = IntVector2::ZeroVector;
+		IsDead = true;
+		break;
 
 	default:
 		break;

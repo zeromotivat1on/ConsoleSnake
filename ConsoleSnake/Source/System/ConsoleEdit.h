@@ -1,12 +1,14 @@
 #pragma once
 
 #include <windows.h>
+#include <Math/IntVector2.h>
 
-class ConsoleEdit
+// Class for console manipulations.
+class ConsoleEdit final
 {
 public:
 	// Show or hide console cursor.
-	static void SetCursorVisibility(bool isVisible) 
+	static void SetCursorVisibility(bool isVisible)
 	{
 		HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -19,15 +21,20 @@ public:
 	}
 
 	// Set console cursor at specified position.
-	// Modified cursor belongs to the standart output stream.
-	static void SetCursorPosition(int x, int y) 
+	// Modified cursor belongs to the standard output stream.
+	static void SetCursorPosition(int x, int y)
 	{
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {(short)(x), (short)(y)});		
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {(short)(x), (short)(y)}); //
+	}
+
+	static void SetCursorPosition(const IntVector2& pos)
+	{
+		SetCursorPosition(pos.X, pos.Y); //
 	}
 
 	// Set console cursor position at the beginning of terminal.
-	static void ResetCursorPosition() 
-	{ 
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {0, 0});
+	static void ResetCursorPosition()
+	{
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {0, 0}); //
 	}
 };

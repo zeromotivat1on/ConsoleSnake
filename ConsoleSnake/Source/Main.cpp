@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 
-#include "App.h"
+#include "App/App.h"
 
 /**
  * Quick reminder for coordinate system in this game.
@@ -11,10 +11,10 @@
  *		(up)	-	<- Y ->    +	(down)
  */
 
-static const int MapWidth = 60;
-static const int MapHeight = 25;
-static IntVector2 MapSize = IntVector2(MapWidth, MapHeight);
-static IntVector2 SnakeInitialLocation = IntVector2((int)(MapWidth * 0.5), (int)(MapHeight * 0.5));
+static IntVector2 MapSize = IntVector2(MAP_WIDTH, MAP_HEIGHT);
+
+static IntVector2 SnakeInitialLocation = IntVector2((int)(MAP_WIDTH * 0.5), (int)(MAP_HEIGHT * 0.5));
+
 static SnakeGameParams SnakeGameParameters{MapSize, SnakeInitialLocation};
 
 int main()
@@ -22,7 +22,7 @@ int main()
 	// Memory leaks detection
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	// For food random spawn.
+	// Set seed for food random spawn.
 	auto now = std::chrono::high_resolution_clock::now();
 	srand((uint16_t)now.time_since_epoch().count());
 

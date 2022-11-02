@@ -24,6 +24,10 @@ private:
 	AppState AppState = AppState::AS_MainMenu;
 
 public:
+	// Interval between ticks.
+	std::chrono::microseconds DeltaTime = std::chrono::microseconds(TICK_MS);
+
+public:
 	// Start the application.
 	void Start();
 

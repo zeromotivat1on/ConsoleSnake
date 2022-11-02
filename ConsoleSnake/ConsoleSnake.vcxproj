@@ -140,12 +140,13 @@
     <ClCompile Include="Source\App\Game\Game.cpp" />
     <ClCompile Include="Source\App\Game\Map.cpp" />
     <ClCompile Include="Source\App\Game\Cell.cpp" />
-    <ClCompile Include="Source\App\GameObject.cpp" />
     <ClCompile Include="Source\App\Game\Snake.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Math\IntVector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\App\AppComponent.h" />
+    <ClInclude Include="Source\System\ConsoleRenderer.h" />
     <ClInclude Include="Source\App\GlobalStates.h" />
     <ClInclude Include="Source\App\Menu\MainMenu.h" />
     <ClInclude Include="Source\App\Game\Actor.h" />
@@ -155,11 +156,11 @@
     <ClInclude Include="Source\App\Game\Map.h" />
     <ClInclude Include="Source\App\Game\Cell.h" />
     <ClInclude Include="Source\Core.h" />
-    <ClInclude Include="Source\App\GameObject.h" />
     <ClInclude Include="Source\App\Game\Snake.h" />
     <ClInclude Include="Source\Math\IntVector2.h" />
     <ClInclude Include="Source\Math\SMath.h" />
     <ClInclude Include="Source\System\ConsoleEdit.h" />
+    <ClInclude Include="Source\System\Macros.h" />
     <ClInclude Include="Source\System\Helpers.h" />
     <ClInclude Include="Source\System\PlayerInput.h" />
   </ItemGroup>

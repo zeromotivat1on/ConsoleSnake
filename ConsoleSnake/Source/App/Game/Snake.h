@@ -59,7 +59,7 @@ public:
 	virtual void Reset() override;
 
 protected:
-	// Store snake location that was obtained during construction.
+	// Snake location that was obtained during construction.
 	IntVector2 InitialLocaiton = IntVector2::ZeroVector;
 
 	// Movement direction.
@@ -68,11 +68,10 @@ protected:
 	// Snake body length.
 	int Length = 0;
 
-	// The body of this snake.
+	// The body of this snake. Head (this) is also here.
 	std::vector<std::unique_ptr<SnakeBodyCell>> Body;
 
 	// Is the snake dead?
-	// Hit the wall or its own body.
 	bool IsDead = false;
 
 public:
@@ -87,15 +86,6 @@ public:
 
 public:
 	virtual void Tick() override;
-
-	/**
-	 * Is the snake should be dead during collision with specific cell?
-	 * @param collidedCellType - cell type with which snake collided.
-	 */
-	bool ShouldBeDead(CellType collidedCellType)
-	{
-		return collidedCellType == CellType::CT_Wall || collidedCellType == CellType::CT_SnakeBody;
-	}
 
 protected:
 	// Try to move the snake in Velocity direction.

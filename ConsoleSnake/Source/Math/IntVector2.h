@@ -70,6 +70,9 @@ public:
 	}
 
 public:
+	bool IsZero() { return *this == ZeroVector; }
+
+public:
 	static bool WithinRange(const IntVector2& vec, int xlower, int xupper, int ylower, int yupper, bool exclusive = true)
 	{
 		if (exclusive) return (vec.X > xlower && vec.X < xupper) && (vec.Y > ylower && vec.Y < yupper);

@@ -14,11 +14,12 @@ public:
 	virtual void Reset() override;
 
 protected:
-	// Cell with which the actor collided.
+	// Cell copy with which the actor collided.
 	std::unique_ptr<Cell> CollidedCell;
 
 public:
 	void SetCollidedCell(std::unique_ptr<Cell>& collidedCell) { CollidedCell = std::move(collidedCell); }
+	void SetCollidedCell(std::unique_ptr<Cell>&& collidedCell) { CollidedCell = std::move(collidedCell); }
 
 protected:
 	// Validate actor position through collision detection.

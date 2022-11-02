@@ -3,7 +3,7 @@
 #include "Core.h"
 #include "Game/Actor.h"
 
-// Actor that disappears after collision with player snake.
+// Base food actor that disappears after collision with player snake.
 // Stores score value to add to player total score.
 class Food : public Actor
 {

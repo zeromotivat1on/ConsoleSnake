@@ -37,7 +37,7 @@ protected:
 	std::shared_ptr<Snake> PlayerSnake;
 
 	// Actors that are currently on map.
-	std::vector<std::unique_ptr<Actor>> Actors;
+	std::vector<std::shared_ptr<Actor>> Actors;
 
 public:
 	IntVector2 GetSize() const { return Size; }
@@ -58,13 +58,16 @@ public:
 	// Check is using cell type.
 	bool IsWall(const IntVector2& location) const;
 
-	// Is a cell at given location is out of bounds (on or further than wall)?
+	// Is a cell at given location is out of bounds?
 	bool IsOutOfBounds(const IntVector2& location) const;
+
+	// Is a cell at given location exactly inside map?
+	bool IsInsideMap(const IntVector2& location) const;
 
 protected:
 	// Create map cells with appropriate types and textures.
 	void InitializeMap();
-	
+
 	/**
 	 * Initialize a map cell texture with given location for this map.
 	 * Used during map blueprint initialization.
@@ -104,8 +107,7 @@ public:
 	 * @return true - success of actor addition.
 	 * @return false - failure of actor addition.
 	 */
-	bool AddActor(std::unique_ptr<Actor>& actor);
-	bool AddActor(std::unique_ptr<Actor>&& actor);
+	bool AddActor(std::shared_ptr<Actor> actor);
 	bool AddActor(const IntVector2& location, const CellType type = CellType::CT_Empty);
 
 	/**
@@ -114,4 +116,9 @@ public:
 	 * @return false - failure of actor remove.
 	 */
 	bool RemoveActorByLocation(const IntVector2& location);
+
+	// Retreive actor from map by its location.
+	// @return std::shared_ptr<Actor> - found actor.
+	// @return nullptr - no actor with given location on map.
+	std::shared_ptr<Actor> GetActorByLocation(const IntVector2& location);
 };

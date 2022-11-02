@@ -1,31 +1,33 @@
-#include "Menu/MainMenu.h"
+#include "MainMenu.h"
 
 void MainMenu::Start()
 {
-	system("CLS");
+	SYSTEM_CLEAR_CONSOLE;
 
 	MainMenuState = MainMenuState::MMS_Idle;
 
-	while (MainMenuState == MainMenuState::MMS_Idle)
-	{
-		Tick(); //
-	}
+	while (MainMenuState == MainMenuState::MMS_Idle) { Tick(); }
 
-	system("CLS");
-	ConsoleEdit::ResetCursorPosition();
+	SYSTEM_RESET_CONSOLE;
 }
 
 void MainMenu::Tick()
 {
-	RenderMainMenuScreen();
 	ConsumeMainMenuInput();
+	RenderMainMenuScreen();
+
+	//std::this_thread::sleep_for(DeltaTime);
 }
 
 void MainMenu::RenderMainMenuScreen()
 {
-	std::cout << "\n\n\tMAIN MENU\n\t" << (char)MainMenuInput::MMI_Play << " - Start game\n\t"
-			  << "Esc"
-			  << " - Exit ";
+	std::stringstream sstream;
+
+	sstream << "MAIN MENU\n"
+			<< (char)MainMenuInput::MMI_Play << " - Start game\n"
+			<< "Esc - Exit\n";
+
+	ConsoleRenderer::RenderVertically(sstream, IntVector2(OffsetX, OffsetY));
 
 	ConsoleEdit::ResetCursorPosition();
 }

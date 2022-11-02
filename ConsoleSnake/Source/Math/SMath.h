@@ -5,7 +5,7 @@
 #pragma once
 
 // Custom types
-#include "IntVector2.h"
+#include "Math/IntVector2.h"
 
 // Built-in types
 #include "stdint.h"
