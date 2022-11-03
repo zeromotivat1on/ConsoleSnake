@@ -4,19 +4,19 @@ Snake game in terminal, created using C++ and STL in Microsoft Visual Studio 202
 # Table of contents
 1. [Useful links](#useful_links)
 2. [Project](#project)\
-&ensp;2.1. [Structure](#structure)\
-&ensp;2.2. [App loop](#app_loop)\
+2.1. [Structure](#structure)\
+2.2. [App loop](#app_loop)\
 &emsp;2.2.1. [App component](#app_component)\
-&ensp;2.3. [Game loop](#game_loop)\
-&ensp;2.4. [Menu loop](#menu_loop)\
-&ensp;2.5. [Additional project files](#additional_project_files)\
+2.3. [Game loop](#game_loop)\
+2.4. [Menu loop](#menu_loop)\
+2.5. [Additional project files](#additional_project_files)\
 &emsp;2.5.1. [Console edit](#console_edit)\
 &emsp;2.5.2. [Console renderer](#console_renderer)\
 &emsp;2.5.3. [Macros](#macros)
 3. [Remarks](#remarks)\
-&ensp;2.1. [Multithreading](#multithreading)\
-&ensp;2.1. [Delta time](#delta_time)\
-&ensp;2.1. [Perfectionism](#perfectionism)
+3.1. [Multithreading](#multithreading)\
+3.2. [Delta time](#delta_time)\
+3.3. [Perfectionism](#perfectionism)
 
 ## Useful links <a name="useful_links"/>
 Before we begin, here are some useful links you can check to expand your knowledge:
