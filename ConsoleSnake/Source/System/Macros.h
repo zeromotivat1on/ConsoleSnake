@@ -3,7 +3,7 @@
 #include "System/ConsoleEdit.h"
 
 // Debug the app.
-#define SDEBUG 1
+#define SDEBUG 0
 
 // Map dimensions.
 #define MAP_WIDTH 80

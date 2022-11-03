@@ -271,9 +271,7 @@ void Game::CheckSnakeCollision()
 		return;
 	}
 
-	Map::MapType mapBlueprint = GameMap->GetMapBlueprint();
-
-	switch (mapBlueprint[snakeLocation.Y][snakeLocation.X])
+	switch (GameMap->GetMapCellTexture(snakeLocation))
 	{
 	case (char)CellType::CT_Wall:
 	{
@@ -329,9 +327,9 @@ void Game::RenderGameOverScreen()
 	std::stringstream sstream;
 
 	sstream << "GAME OVER          \n"
+			<< "Your score - " << PlayerScore << "          \n"
 			<< "r - Restart the game          \n"
-			<< "Esc - Go to main menu          \n"
-			<< "Your score - " << PlayerScore << "          \n";
+			<< "Esc - Go to main menu          \n";
 
 	ConsoleRenderer::RenderVertically(sstream, IntVector2(cursorX, cursorY));
 }
@@ -368,14 +366,24 @@ bool Game::GenerateFoodOnMap()
 {
 	static_assert(std::is_base_of<Food, T>::value, "T is not of type Food");
 
-	Map::MapType mapBlueprint = GameMap->GetMapBlueprint();
 	IntVector2 foodLocation = Food::GenerateLocation(GameMap->GetSize());
 
 	// Get rid of situations when food doesn't spawn on empty cell.
-	// FIX: With snake grow, amount of iterations will increase (on average).
-	while (mapBlueprint[foodLocation.Y][foodLocation.X] != (char)CellType::CT_Empty)
+	// Warning: with snake grow, amount of iterations will increase (on average).
+
+	// Add 1 to player snake as at this moment we don't know
+	// that snake has increased, but it definetly will.
+	bool mapHasSpaceToSpawnFood = PlayerSnake->GetLength() + 1 < GameMap->GetFreeCells();
+
+	// While food not on empty cell and map has space to spawn food - retry to spawn new food.
+	while (GameMap->GetMapCellTexture(foodLocation) != (char)CellType::CT_Empty && mapHasSpaceToSpawnFood)
 	{
 		foodLocation = Food::GenerateLocation(GameMap->GetSize()); //
+
+		std::stringstream sstream;
+		sstream << "Generated food location: " << foodLocation << " Game map size: " << GameMap->GetSize();
+		sstream << "Snake length + 1: " << PlayerSnake->GetLength() + 1 << "Map free cells: " << GameMap->GetFreeCells();
+		ConsoleRenderer::RenderVertically(sstream, IntVector2(10, 10));
 	}
 
 	return AddActorToMap<T>(foodLocation, CellType::CT_Food);

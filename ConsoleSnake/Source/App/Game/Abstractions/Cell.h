@@ -11,6 +11,7 @@ enum class CellType : uint8_t
 	// Collision with player snake - game over.
 	CT_Wall = '#',
 
+	// Under player control.
 	CT_SnakeHead = '0',
 
 	// Collision with player snake - game over.

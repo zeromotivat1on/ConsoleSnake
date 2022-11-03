@@ -6,6 +6,7 @@
 class Actor;
 class Snake;
 
+// Base game map with actors.
 class Map
 {
 public:
@@ -16,7 +17,7 @@ public:
 	Map(const IntVector2& size);
 	virtual ~Map() = default;
 
-	// Reset map to restart the game.
+	// Reset map data.
 	virtual void Reset();
 
 protected:
@@ -47,16 +48,13 @@ public:
 	// Get non-collidable map cells.
 	int GetFreeCells() const { return FreeCells; };
 
-	MapType& GetMapBlueprint() { return MapBlueprint; }
-
 	void SetPlayerSnake(std::shared_ptr<Snake>& snake) { PlayerSnake = snake; }
 
 	// Get reference to actors on map.
 	auto& GetActors() { return Actors; }
 
-	// Is a cell at given location a wall?
-	// Check is using cell type.
-	bool IsWall(const IntVector2& location) const;
+	// Get map cell texture at given location.
+	char GetMapCellTexture(const IntVector2& location);
 
 	// Is a cell at given location is out of bounds?
 	bool IsOutOfBounds(const IntVector2& location) const;

@@ -51,6 +51,8 @@ void MainMenu::ConsumeMainMenuInput()
 			break;
 		}
 	}
+
+	std::this_thread::sleep_for(DeltaTime);
 }
 
 AppState MainMenu::GetCorrespondingAppState() const

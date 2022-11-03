@@ -4,7 +4,7 @@
 #include "App/AppComponent.h"
 
 // Primary player interaction with the snake game app.
-class MainMenu : public IAppComponent
+class MainMenu : public AppComponent
 {
 public:
 	MainMenu() = default;

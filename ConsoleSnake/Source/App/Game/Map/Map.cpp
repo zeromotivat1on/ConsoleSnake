@@ -41,9 +41,9 @@ char Map::InitMapCellTexture(const IntVector2& location) const
 	return ShouldBeWall(location) ? (char)CellType::CT_Wall : (char)CellType::CT_Empty;
 }
 
-bool Map::IsWall(const IntVector2& location) const
+char Map::GetMapCellTexture(const IntVector2& location) 
 {
-	return MapBlueprint[location.Y][location.X] == (char)CellType::CT_Wall;
+	return MapBlueprint[location.Y][location.X];
 }
 
 bool Map::IsOutOfBounds(const IntVector2& location) const

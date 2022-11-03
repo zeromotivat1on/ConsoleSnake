@@ -9,7 +9,7 @@ class Snake;
 class Food;
 
 // Top layer of snake-game logic.
-class Game final : public IAppComponent
+class Game final : public AppComponent
 {
 public:
 	Game() = default;

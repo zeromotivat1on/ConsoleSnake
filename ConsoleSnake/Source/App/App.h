@@ -18,8 +18,8 @@ public:
 	App(const SnakeGameParams& snakeGameParams);
 
 private:
-	std::unique_ptr<MainMenu> MainMenu;
-	std::unique_ptr<Game> SnakeGame;
+	std::unique_ptr<AppComponent> MainMenu;
+	std::unique_ptr<AppComponent> SnakeGame;
 
 	AppState AppState = AppState::AS_MainMenu;
 

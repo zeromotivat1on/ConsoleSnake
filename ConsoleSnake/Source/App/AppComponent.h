@@ -5,7 +5,7 @@
 #include "App/GlobalStates.h"
 
 // Base interface for app components.
-class IAppComponent
+class AppComponent
 {
 protected:
 	std::chrono::milliseconds DeltaTime = std::chrono::milliseconds(TICK_MS);

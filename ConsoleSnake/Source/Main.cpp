@@ -1,9 +1,11 @@
+#include "App/App.h"
+
+#if SDEBUG
 // Memory leaks detection
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
-
-#include "App/App.h"
+#endif
 
 /**
  * Quick reminder for coordinate system in this game.
@@ -23,8 +25,10 @@ static SnakeGameParams SnakeGameParameters{MapSize, SnakeInitialLocation};
 
 int main()
 {
+#if SDEBUG
 	// Memory leaks detection
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 
 	// Set seed for food random spawn.
 	auto now = std::chrono::high_resolution_clock::now();

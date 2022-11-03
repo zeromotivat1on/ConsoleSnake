@@ -5,7 +5,7 @@
 App::App(const SnakeGameParams& snakeGameParams) //
 	: MainMenu(std::make_unique<class MainMenu>())
 {
-	SnakeGame = std::make_unique<class Game>(						  //
+	SnakeGame = std::make_unique<Game>(								  //
 		std::make_unique<Map>(snakeGameParams.mapSize),				  //
 		std::make_unique<Snake>(snakeGameParams.snakeInitialLocation) //
 	);
@@ -42,4 +42,6 @@ void App::Tick()
 	default:
 		break;
 	}
+
+	std::this_thread::sleep_for(DeltaTime);
 }
