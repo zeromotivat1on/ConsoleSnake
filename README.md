@@ -77,3 +77,16 @@ Current logic concerned only with manipulation of terminal cursor position and v
 #### Console renderer
 `ConsoleSnake\Source\System\ConsoleRenderer.h(cpp)`\
 The class allows to print data to console in a fast and convenient manner.
+
+## Remarks
+Here, we would like to add several answears to possible questions.
+
+### Multithreading
+In fact, the project uses multithreading, but, frankly, only in scientific purposes.
+You might find a method in game app component that renders current play time on the console, next to game map.
+Basically, project can be freely run on 1 thread, just remove or comment separate thread specific code in game app component.
+
+### Delta time
+You can find DeltaTime field in app components and app itself, but don't let it confuse you.
+This field is simply used for thread sleep after game tick to make game run a bit slowly and smoothly.
+At least, it helped on our hardware, feel free to modify its value or even rewrite tick logic.
