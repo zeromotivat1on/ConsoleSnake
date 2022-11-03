@@ -7,7 +7,7 @@ Before we begin, here are some useful links you can check to expand your knowled
 - [Clang format](https://clang.llvm.org/docs/ClangFormat.html) - useful C++ formatter.
 - [Game loop pattern](http://gameprogrammingpatterns.com/game-loop.html) - cool article about game loops.
 - [Game loop with multithreading](https://gamedev.stackexchange.com/questions/142504/game-loop-with-multithreading) - 
-discussion, do you actually need multithreading in you game?
+discussion, do you actually need multithreading in your game?
 
 ## Project
 Section with pretty detailed description of the project.
