@@ -10,7 +10,7 @@ Before we begin, here are some useful links you can check to expand your knowled
 discussion, do you actually need multithreading in you game?
 
 ## Project
-Pretty detailed description of the project.
+Section with pretty detailed description of the project.
 
 ### Structure
 Simply, the project structure looks like this:\
