@@ -97,6 +97,5 @@ At least, it helped on our hardware, feel free to modify its value or even rewri
 
 ### Perfectionism
 Nothing in this world is perfect, neither this project.\
-Through frame by frame debugging we faced several issues that need to be fixed. Here is the list:\
-\
+Through frame by frame debugging we faced several issues that need to be fixed. Here is the list:
 - [ ] Move snake head after moving body (i.e reduce edge case bugs).
