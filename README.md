@@ -23,8 +23,8 @@ Simply, the project structure looks like this:\
 
 ### App loop
 `ConsoleSnake\Source\App\App.h(cpp)`\
-Basically, the app have a main (app) loop that validates its states and choose which app component loop to start.\
-You may find DeltaTime field in app or app component classes, but don't await game-engine-like tick system here.\
+Basically, the app have a main (app) loop that validates its states and chooses which app component loop to start.\
+You may find ```DeltaTime``` field in app or app component classes, but don't await game-engine-like tick system here.\
 Presudo-code for app loop:
 ```
 app_loop:
@@ -66,8 +66,8 @@ game_loop:
 ```
 So, menu allows the player to change the app state that, on its turn, tells if the player should sit in menu or play the game.
 
-### Additional project abstractions
-In this section, we will describe some project abstractions that are not fully-concerned with game itself.
+### Additional project abstractions and not only them
+In this section, we will describe some project files that are not fully-concerned with game itself.
 
 #### Console edit
 `ConsoleSnake\Source\System\ConsoleEdit.h(cpp)`\
@@ -78,6 +78,10 @@ Current logic concerned only with manipulation of terminal cursor position and v
 `ConsoleSnake\Source\System\ConsoleRenderer.h(cpp)`\
 The class allows to print data to console in a fast and convenient manner.
 
+#### Macros
+Browsing the app system headers, you may come across on `Macros.h`.
+This header defines several macro-statements to either represent sort of option or simplify writing code.
+
 ## Remarks
 Here, we would like to add several answears to possible questions.
 
@@ -87,6 +91,6 @@ You might find a method in game app component that renders current play time on 
 Basically, project can be freely run on 1 thread, just remove or comment separate thread specific code in game app component.
 
 ### Delta time
-You can find DeltaTime field in app components and app itself, but don't let it confuse you.\
+You can find ```DeltaTime``` field in app components and app itself, but don't let it confuse you.\
 This field is simply used for thread sleep after game tick to make game run a bit slowly and smoothly.\
 At least, it helped on our hardware, feel free to modify its value or even rewrite tick logic.
