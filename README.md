@@ -24,7 +24,7 @@ Simply, the project structure looks like this:\
 ### App loop
 `ConsoleSnake\Source\App\App.h(cpp)`\
 Basically, the app have a main (app) loop that validates its states and choose which app component loop to start.\
-You may find DeltaTime field in app or app component classes, but don't await game-engine-like tick system here.
+You may find DeltaTime field in app or app component classes, but don't await game-engine-like tick system here.\
 Presudo-code for app loop:
 ```
 app_loop:
@@ -82,11 +82,11 @@ The class allows to print data to console in a fast and convenient manner.
 Here, we would like to add several answears to possible questions.
 
 ### Multithreading
-In fact, the project uses multithreading, but, frankly, only in scientific purposes.
-You might find a method in game app component that renders current play time on the console, next to game map.
+In fact, the project uses multithreading, but, frankly, only in scientific purposes.\
+You might find a method in game app component that renders current play time on the console, next to game map.\
 Basically, project can be freely run on 1 thread, just remove or comment separate thread specific code in game app component.
 
 ### Delta time
-You can find DeltaTime field in app components and app itself, but don't let it confuse you.
-This field is simply used for thread sleep after game tick to make game run a bit slowly and smoothly.
+You can find DeltaTime field in app components and app itself, but don't let it confuse you.\
+This field is simply used for thread sleep after game tick to make game run a bit slowly and smoothly.\
 At least, it helped on our hardware, feel free to modify its value or even rewrite tick logic.
