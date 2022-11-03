@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core.h"
-#include "Game/Cell.h"
+#include "Game/Abstractions/Cell.h"
 
 // Game object that have location, texture, type, can tick and collide.
 class Actor : public Cell

@@ -2,21 +2,22 @@
 
 void MainMenu::Start()
 {
-	SYSTEM_CLEAR_CONSOLE;
+	SYSTEM_CLEAR_CONSOLE();
 
 	MainMenuState = MainMenuState::MMS_Idle;
 
-	while (MainMenuState == MainMenuState::MMS_Idle) { Tick(); }
+	while (MainMenuState == MainMenuState::MMS_Idle)
+	{
+		Tick(); //
+	}
 
-	SYSTEM_RESET_CONSOLE;
+	SYSTEM_RESET_CONSOLE();
 }
 
 void MainMenu::Tick()
 {
 	ConsumeMainMenuInput();
 	RenderMainMenuScreen();
-
-	//std::this_thread::sleep_for(DeltaTime);
 }
 
 void MainMenu::RenderMainMenuScreen()

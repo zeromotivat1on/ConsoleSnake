@@ -6,6 +6,10 @@ Snake::Snake(const IntVector2& location) : Actor(location, CellType::CT_SnakeHea
 
 	// Snake head.
 	Grow(location, CellType::CT_SnakeHead);
+
+#if SDEBUG
+	for (int i = 1; i < 10; ++i) { Grow(IntVector2(location.X, location.Y + i)); }
+#endif
 }
 
 void Snake::Reset()
@@ -20,6 +24,10 @@ void Snake::Reset()
 	Body.clear();
 
 	Grow(Location, CellType::CT_SnakeHead);
+
+#if SDEBUG
+	for (int i = 1; i < 10; ++i) { Grow(IntVector2(Location.X, Location.Y + i)); }
+#endif
 }
 
 void Snake::Tick()

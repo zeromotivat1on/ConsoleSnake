@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core.h"
-#include "Game/Actor.h"
+#include "Game/Abstractions/Actor.h"
 
 // Base food actor that disappears after collision with player snake.
 // Stores score value to add to player total score.
@@ -22,6 +22,6 @@ public:
 
 public:
 	// Generate food random location to place on map.
-	// @param upper - bounds for random position.
+	// @param upper - upper bounds for random position.
 	static IntVector2 GenerateLocation(const IntVector2& upper);
 };

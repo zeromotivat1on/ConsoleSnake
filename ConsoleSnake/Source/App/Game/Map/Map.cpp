@@ -1,6 +1,6 @@
 #include "Map.h"
-#include "Game/Food.h"
-#include "Game/Snake.h"
+#include "Game/Snake/Snake.h"
+#include "Game/Food/Food.h"
 
 Map::Map(const IntVector2& size) //
 	: Size(size), Height(size.Y), Width(size.X)
@@ -8,7 +8,7 @@ Map::Map(const IntVector2& size) //
 	InitializeMap();
 }
 
-void Map::Reset() 
+void Map::Reset()
 {
 	ResetMapBlueprint();
 	PlayerSnake.reset();
@@ -118,15 +118,6 @@ void Map::Print()
 	ConsoleRenderer::RenderVertically(mapStream, IntVector2::ZeroVector);
 }
 
-bool Map::DrawMapCellTexture(const IntVector2& location, const char texture)
-{
-	if (IsOutOfBounds(location)) return false;
-
-	MapBlueprint[location.Y][location.X] = texture;
-
-	return true;
-}
-
 bool Map::AddActor(std::shared_ptr<Actor> actor)
 {
 	if (!IsInsideMap(actor.get()->GetLocation())) return false;
@@ -149,12 +140,12 @@ bool Map::RemoveActorByLocation(const IntVector2& location)
 {
 	if (!IsInsideMap(location)) return false;
 
-	auto removeIt = Actors.begin();
-	for (auto it = Actors.begin(); it != Actors.end(); ++it)
-	{
-		auto& actor = *it;
-		if (actor->GetLocation() == location) removeIt = it;
-	}
+	auto removeIt = std::find_if(Actors.begin(), Actors.end(), //
+		[&location](std::shared_ptr<Actor>& actor)			   //
+		{													   //
+			return location == actor.get()->GetLocation();	   //
+		}													   //
+	);
 
 	if (!(*removeIt)) return false;
 
@@ -164,10 +155,12 @@ bool Map::RemoveActorByLocation(const IntVector2& location)
 
 std::shared_ptr<Actor> Map::GetActorByLocation(const IntVector2& location)
 {
-	for (auto& actor : Actors) 
-	{
-		if (location == actor.get()->GetLocation()) return actor;
-	}
+	auto it = std::find_if(Actors.begin(), Actors.end(),   //
+		[&location](std::shared_ptr<Actor>& actor)		   //
+		{												   //
+			return location == actor.get()->GetLocation(); //
+		}												   //
+	);
 
-	return nullptr;
+	return *it;
 }

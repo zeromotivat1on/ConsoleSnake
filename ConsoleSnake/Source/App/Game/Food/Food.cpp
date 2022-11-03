@@ -7,7 +7,7 @@ Food::Food(const IntVector2& location, const CellType type) //
 
 IntVector2 Food::GenerateLocation(const IntVector2& upper)
 {
-	// Generate food inside map (not on walls).
+	// Generate food inside map.
 	int randX = (rand() % (upper.X - 3)) + 1;
 	int randY = (rand() % (upper.Y - 3)) + 1;
 

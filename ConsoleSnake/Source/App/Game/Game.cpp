@@ -1,6 +1,6 @@
 #include "Game.h"
-#include "Game/Snake.h"
-#include "Game/Food.h"
+#include "Game/Snake/Snake.h"
+#include "Game/Food/Food.h"
 
 Game::Game(std::unique_ptr<Map> map, std::unique_ptr<Snake> snake)
 	: GameMap(std::move(map)),		 //
@@ -9,6 +9,10 @@ Game::Game(std::unique_ptr<Map> map, std::unique_ptr<Snake> snake)
 	  SecondScreenOffsetX(5)
 {
 	GameMap->SetPlayerSnake(PlayerSnake);
+
+	Seconds = 0;
+	Minutes = 0;
+	Hours = 0;
 
 	GenerateFoodOnMap();
 }
@@ -21,6 +25,10 @@ Game::Game(const IntVector2& mapSize, const IntVector2& snakeInitialLocation)
 {
 	GameMap->SetPlayerSnake(PlayerSnake);
 
+	Seconds = 0;
+	Minutes = 0;
+	Hours = 0;
+
 	GenerateFoodOnMap();
 }
 
@@ -31,7 +39,7 @@ Game::~Game()
 
 void Game::Reset()
 {
-	SYSTEM_CLEAR_CONSOLE;
+	SYSTEM_CLEAR_CONSOLE();
 
 	PlayerScore = 0;
 
@@ -59,15 +67,80 @@ AppState Game::GetCorrespondingAppState() const
 
 void Game::Start()
 {
-	SYSTEM_CLEAR_CONSOLE;
+	SYSTEM_CLEAR_CONSOLE();
 
 	GameState = GameState::GS_Play;
 
-	// Workers.emplace_back(std::thread())
+	Workers.emplace_back(std::thread(&Game::RenderTimer, this));
 
-	while (GameState != GameState::GS_Shutdown) { Tick(); }
+	while (GameState != GameState::GS_Shutdown)
+	{
+		Tick(); //
+	}
 
-	SYSTEM_RESET_CONSOLE;
+	SYSTEM_RESET_CONSOLE();
+}
+
+// Simple timer implementation on separate thread.
+void Game::RenderTimer()
+{
+	using namespace std::literals::chrono_literals;
+
+	int cursorX = GameMap->GetWidth() + SecondScreenOffsetX;
+	int cursorY = (int)(GameMap->GetHeight() * 0.25);
+
+	std::stringstream sstream;
+
+	while (GameState != GameState::GS_Shutdown)
+	{
+		// Loaded values from atomic.
+
+		int lsec = Seconds.load();
+		int lmin = Minutes.load();
+		int lhr = Hours.load();
+
+		if (GameState == GameState::GS_Over)
+		{
+			if (lsec != 0 || lmin != 0 || lhr != 0)
+			{
+				Seconds = 0;
+				Minutes = 0;
+				Hours = 0;
+				sstream.clear();
+			}
+
+			std::this_thread::sleep_for(1s);
+
+			continue;
+		}
+
+		if (lsec == 60)
+		{
+			Minutes = ++lmin;
+
+			if (lmin == 60)
+			{
+				Hours = ++lhr;
+				lmin = 0;
+				Minutes = 0;
+			}
+
+			lsec = 0;
+			Seconds = 0;
+		}
+
+		sstream << "Time: "												 //
+				<< std::setfill('0') << std::setw(2) << Hours << " : "	 //
+				<< std::setfill('0') << std::setw(2) << Minutes << " : " //
+				<< std::setfill('0') << std::setw(2) << Seconds << '\n';
+
+		ConsoleRenderer::RenderVertically(sstream, IntVector2(cursorX, cursorY));
+
+		Seconds = ++lsec;
+		sstream.clear();
+
+		std::this_thread::sleep_for(1s);
+	}
 }
 
 void Game::Tick()
@@ -92,7 +165,7 @@ void Game::GameTick()
 	TickActors();
 	CheckSnakeCollision();
 
-	CheckEndGame();
+	if (CheckEndGame()) return;
 
 	RenderGameMap();
 	RenderSecondScreen();
@@ -120,10 +193,24 @@ void Game::RenderSecondScreen()
 
 	std::stringstream sstream;
 
-	sstream << "Score: " << PlayerScore << '\n' //
-			<< "Snake position: " << PlayerSnake->GetLocation() << "   \n";
+	sstream << "Score: " << PlayerScore << '\n';
 
 	ConsoleRenderer::RenderVertically(sstream, IntVector2(cursorX, cursorY));
+
+#if SDEBUG
+	cursorY = (int)(GameMap->GetHeight() * 0.5);
+
+	sstream.clear();
+
+	sstream << "DEBUG ONLY INFO\n"										   //
+			<< "---------------\n"										   //
+			<< "Snake velocity: " << PlayerSnake->GetVelocity() << "   \n" //
+			<< "Snake position: " << PlayerSnake->GetLocation() << "   \n" //
+			<< "Snake length: " << PlayerSnake->GetLength() << "   \n"	   //
+			<< "Snake is dead: " << (PlayerSnake->GetIsDead() ? "True" : "False") << "   \n";
+
+	ConsoleRenderer::RenderVertically(sstream, IntVector2(cursorX, cursorY));
+#endif
 }
 
 void Game::ConsumeGameInput()
@@ -203,10 +290,7 @@ void Game::CheckSnakeCollision()
 	case (char)CellType::CT_Food:
 	{
 		// Add scores to player.
-		const std::shared_ptr<Actor> mapActor = GameMap->GetActorByLocation(snakeLocation);
-		if (!mapActor) break;
-
-		const Food* eatenFood = static_cast<Food*>(mapActor.get());
+		const std::shared_ptr<Food> eatenFood = std::static_pointer_cast<Food>(GameMap->GetActorByLocation(snakeLocation));
 		if (!eatenFood) break;
 
 		PlayerScore += eatenFood->GetScore();

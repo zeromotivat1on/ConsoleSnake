@@ -18,25 +18,25 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\App\Game\Cell.cpp">
+    <ClCompile Include="Source\App\Game\Abstractions\Cell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\App\Game\Map.cpp">
+    <ClCompile Include="Source\App\Game\Map\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\App\Game\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\App\Game\Snake.cpp">
+    <ClCompile Include="Source\App\Game\Snake\Snake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Math\IntVector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\App\Game\Actor.cpp">
+    <ClCompile Include="Source\App\Game\Abstractions\Actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\App\Game\Food.cpp">
+    <ClCompile Include="Source\App\Game\Food\Food.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\App\App.cpp">
@@ -56,28 +56,25 @@
     <ClInclude Include="Source\Math\SMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\App\Game\Cell.h">
+    <ClInclude Include="Source\App\Game\Abstractions\Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\App\Game\Map.h">
+    <ClInclude Include="Source\App\Game\Map\Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\App\Game\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\App\Game\Snake.h">
+    <ClInclude Include="Source\App\Game\Snake\Snake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\System\ConsoleEdit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\App\Game\Actor.h">
+    <ClInclude Include="Source\App\Game\Abstractions\Actor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\System\Helpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\App\Game\Food.h">
+    <ClInclude Include="Source\App\Game\Food\Food.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\System\PlayerInput.h">

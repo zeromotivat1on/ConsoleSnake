@@ -2,8 +2,8 @@
 
 #include "Core.h"
 #include "App/AppComponent.h"
-#include "Game/Cell.h"
-#include "Game/Map.h"
+#include "Game/Abstractions/Cell.h"
+#include "Game/Map/Map.h"
 
 class Snake;
 class Food;
@@ -30,12 +30,18 @@ private:
 	// Player score can be increased by eating fruit.
 	int PlayerScore = 0;
 
-	// Offset for additional game info (score etc.) that
-	// is placed to right of the game map.
+	// Offset for additional game info (score etc.)
+	// that is placed to right to the game map.
 	int SecondScreenOffsetX = 0;
 
 	// Threads.
 	std::vector<std::thread> Workers;
+
+	// Atomic fields for timer on separate thread;
+
+	std::atomic_int Seconds = 0;
+	std::atomic_int Minutes = 0;
+	std::atomic_int Hours = 0;
 
 public:
 	Map* GetMap() const { return GameMap.get(); }
@@ -67,6 +73,7 @@ private:
 	void CheckSnakeCollision();
 
 	// Check game over conditions.
+	// Set GameOver state if conditions are met.
 	// @return true - game in GameOver state.
 	// @return false - game NOT in GameOver state.
 	bool CheckEndGame();
@@ -96,6 +103,9 @@ private:
 	void Reset();
 
 #pragma endregion GameOverTick
+
+	// Render simple timer on second screen.
+	void RenderTimer();
 
 public:
 	// Perfrom game tick.

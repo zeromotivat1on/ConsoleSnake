@@ -1,6 +1,6 @@
 #include "App.h"
-#include "Game/Map.h"
-#include "Game/Snake.h"
+#include "Game/Map/Map.h"
+#include "Game/Snake/Snake.h"
 
 App::App(const SnakeGameParams& snakeGameParams) //
 	: MainMenu(std::make_unique<class MainMenu>())
@@ -15,7 +15,10 @@ void App::Start()
 {
 	ConsoleEdit::SetCursorVisibility(false);
 
-	while (AppState != AppState::AS_Shutdown) { Tick(); }
+	while (AppState != AppState::AS_Shutdown)
+	{
+		Tick(); //
+	}
 
 	ConsoleEdit::ResetCursorPosition();
 	ConsoleEdit::SetCursorVisibility(true);

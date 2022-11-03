@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core.h"
-#include "Game/Cell.h"
+#include "Game/Abstractions/Cell.h"
 
 class Actor;
 class Snake;
@@ -94,13 +94,6 @@ public:
 
 	// Prints the map to the console.
 	void Print();
-
-	/**
-	 * Update map cell texture at given location.
-	 * @return true - success of map cell update.
-	 * @return false - failure of map cell update.
-	 */
-	bool DrawMapCellTexture(const IntVector2& location, const char texture);
 
 	/**
 	 * Add actor to this map.

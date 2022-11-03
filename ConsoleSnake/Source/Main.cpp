@@ -13,7 +13,11 @@
 
 static IntVector2 MapSize = IntVector2(MAP_WIDTH, MAP_HEIGHT);
 
+#if SDEBUG
+static IntVector2 SnakeInitialLocation = IntVector2((int)(4), (int)(4));
+#else
 static IntVector2 SnakeInitialLocation = IntVector2((int)(MAP_WIDTH * 0.5), (int)(MAP_HEIGHT * 0.5));
+#endif
 
 static SnakeGameParams SnakeGameParameters{MapSize, SnakeInitialLocation};
 

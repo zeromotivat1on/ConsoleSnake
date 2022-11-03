@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core.h"
-#include "Game/Actor.h"
+#include "Game/Abstractions/Actor.h"
 
 // Snake body part with size equal to 1 map cell.
 // Also stores its location before snake movement for convenience.
