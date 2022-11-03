@@ -17,15 +17,19 @@ public:
 	App() = default;
 	App(const SnakeGameParams& snakeGameParams);
 
+
 private:
-	std::unique_ptr<AppComponent> MainMenu;
-	std::unique_ptr<AppComponent> SnakeGame;
+	std::shared_ptr<AppComponent> MainMenu;
+	std::shared_ptr<AppComponent> SnakeGame;
 
 	AppState AppState = AppState::AS_MainMenu;
 
-public:
 	// Interval between ticks.
 	std::chrono::microseconds DeltaTime = std::chrono::microseconds(TICK_MS);
+
+public:
+	std::shared_ptr<AppComponent> GetMainMenu() const { return MainMenu; }
+	std::shared_ptr<AppComponent> GetSnakeGame() const { return SnakeGame; }
 
 public:
 	// Start the application.

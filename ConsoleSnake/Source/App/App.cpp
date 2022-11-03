@@ -3,9 +3,9 @@
 #include "Game/Snake/Snake.h"
 
 App::App(const SnakeGameParams& snakeGameParams) //
-	: MainMenu(std::make_unique<class MainMenu>())
+	: MainMenu(std::make_shared<class MainMenu>())
 {
-	SnakeGame = std::make_unique<Game>(								  //
+	SnakeGame = std::make_shared<Game>(								  //
 		std::make_unique<Map>(snakeGameParams.mapSize),				  //
 		std::make_unique<Snake>(snakeGameParams.snakeInitialLocation) //
 	);

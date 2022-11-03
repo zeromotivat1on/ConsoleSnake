@@ -44,8 +44,6 @@ private:
 	std::atomic_int Hours = 0;
 
 public:
-	Map* GetMap() const { return GameMap.get(); }
-
 	enum class GameState GetGameState() const { return GameState; }
 
 	// Get app state that corresponds to game state.
