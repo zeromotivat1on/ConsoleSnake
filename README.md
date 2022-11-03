@@ -24,6 +24,7 @@ Simply, the project structure looks like this:\
 ### App loop
 `ConsoleSnake\Source\App\App.h(cpp)`\
 Basically, the app have a main (app) loop that validates its states and choose which app component loop to start.\
+You may find DeltaTime field in app or app component classes, but don't await game-engine-like tick system here.
 Presudo-code for app loop:
 ```
 app_loop:
