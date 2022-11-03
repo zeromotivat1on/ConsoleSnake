@@ -1,6 +1,4 @@
 #include "Game.h"
-#include "Game/Snake/Snake.h"
-#include "Game/Food/Food.h"
 
 Game::Game(std::unique_ptr<Map> map, std::unique_ptr<Snake> snake)
 	: GameMap(std::move(map)),		 //
@@ -352,39 +350,4 @@ void Game::ConsumeGameOverInput()
 			break;
 		}
 	}
-}
-
-template <typename T> //
-bool Game::AddActorToMap(const IntVector2& location, const CellType type)
-{
-	static_assert(std::is_base_of<Actor, T>::value, "T is not of type Actor");
-	return GameMap->AddActor(std::make_unique<T>(location, type));
-}
-
-template <typename T> //
-bool Game::GenerateFoodOnMap()
-{
-	static_assert(std::is_base_of<Food, T>::value, "T is not of type Food");
-
-	IntVector2 foodLocation = Food::GenerateLocation(GameMap->GetSize());
-
-	// Get rid of situations when food doesn't spawn on empty cell.
-	// Warning: with snake grow, amount of iterations will increase (on average).
-
-	// Add 1 to player snake as at this moment we don't know
-	// that snake has increased, but it definetly will.
-	bool mapHasSpaceToSpawnFood = PlayerSnake->GetLength() + 1 < GameMap->GetFreeCells();
-
-	// While food not on empty cell and map has space to spawn food - retry to spawn new food.
-	while (GameMap->GetMapCellTexture(foodLocation) != (char)CellType::CT_Empty && mapHasSpaceToSpawnFood)
-	{
-		foodLocation = Food::GenerateLocation(GameMap->GetSize()); //
-
-		std::stringstream sstream;
-		sstream << "Generated food location: " << foodLocation << " Game map size: " << GameMap->GetSize();
-		sstream << "Snake length + 1: " << PlayerSnake->GetLength() + 1 << "Map free cells: " << GameMap->GetFreeCells();
-		ConsoleRenderer::RenderVertically(sstream, IntVector2(10, 10));
-	}
-
-	return AddActorToMap<T>(foodLocation, CellType::CT_Food);
 }
