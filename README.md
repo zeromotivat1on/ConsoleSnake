@@ -94,3 +94,9 @@ Basically, project can be freely run on 1 thread, just remove or comment separat
 You can find ```DeltaTime``` field in app components and app itself, but don't let it confuse you.\
 This field is simply used for thread sleep after game tick to make game run a bit slowly and smoothly.\
 At least, it helped on our hardware, feel free to modify its value or even rewrite tick logic.
+
+### Perfectionism
+Nothing in this world is perfect, neither this project.\
+Through frame by frame debugging we faced several issues that need to be fixed. Here is the list:\
+\
+- [ ] Move snake head after moving body (i.e reduce edge case bugs).
