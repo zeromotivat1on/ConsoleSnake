@@ -37,8 +37,7 @@ Simply, the project structure looks like this:\
 &ensp;📁Source - all .cpp and .h here\
 &emsp;📁App - game core\
 &emsp;📁Math - math functions, structs etc.\
-&emsp;📁System - console editions, helpers, macros etc.\
-
+&emsp;📁System - console editions, helpers, macros etc.
 
 ### App loop <a name="app_loop"/>
 `ConsoleSnake\Source\App\App.h(cpp)`\
