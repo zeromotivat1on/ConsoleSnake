@@ -32,11 +32,13 @@ Section with pretty detailed description of the project.
 ### Structure <a name="structure"/>
 Simply, the project structure looks like this:\
 \
-📁ConsoleSnake - root\
+📁ConsoleSnakeTests - unit tests for the project\
+📁ConsoleSnake - root project\
 &ensp;📁Source - all .cpp and .h here\
 &emsp;📁App - game core\
 &emsp;📁Math - math functions, structs etc.\
-&emsp;📁System - console editions, helpers, macros etc.
+&emsp;📁System - console editions, helpers, macros etc.\
+
 
 ### App loop <a name="app_loop"/>
 `ConsoleSnake\Source\App\App.h(cpp)`\
