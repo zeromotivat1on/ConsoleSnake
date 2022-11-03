@@ -79,7 +79,7 @@ Current logic concerned only with manipulation of terminal cursor position and v
 The class allows to print data to console in a fast and convenient manner.
 
 #### Macros
-Browsing the app system headers, you may come across on `Macros.h`.
+`ConsoleSnake\Source\System\Macros.h(cpp)`\
 This header defines several macro-statements to either represent sort of option or simplify writing code.
 
 ## Remarks
