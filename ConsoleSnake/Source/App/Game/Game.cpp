@@ -286,7 +286,7 @@ void Game::CheckSnakeCollision()
 	case (char)CellType::CT_Food:
 	{
 		// Add scores to player.
-		const std::shared_ptr<Food> eatenFood = std::static_pointer_cast<Food>(GameMap->GetActorByLocation(snakeLocation));
+		const std::shared_ptr<Food> eatenFood = std::dynamic_pointer_cast<Food>(GameMap->GetActorByLocation(snakeLocation));
 		if (!eatenFood) break;
 
 		PlayerScore += eatenFood->GetScore();
