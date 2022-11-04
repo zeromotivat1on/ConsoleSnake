@@ -30,14 +30,20 @@ discussion, do you actually need multithreading in your game?
 Section with pretty detailed description of the project.
 
 ### Structure <a name="structure"/>
-Simply, the project structure looks like this:\
+Generally, the project structure looks like this:\
 \
 📁ConsoleSnakeTests - unit tests for the project\
 📁ConsoleSnake - root project\
 &ensp;📁Source - all .cpp and .h here\
-&emsp;📁App - game core\
 &emsp;📁Math - math functions, structs etc.\
-&emsp;📁System - console editions, helpers, macros etc.
+&emsp;📁System - console editions, helpers, macros etc.\
+&emsp;📁App - app core\
+&emsp;&ensp;📁Menu - game menu core\
+&emsp;&ensp;📁Game - game core\
+&emsp;&emsp;📁Abstractions - game abstractions\
+&emsp;&emsp;📁Food - food logic\
+&emsp;&emsp;📁Map - game map\
+&emsp;&emsp;📁Snake - player snake
 
 ### App loop <a name="app_loop"/>
 `ConsoleSnake\Source\App\App.h(cpp)`\
