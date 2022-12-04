@@ -1,36 +1,20 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "Core.h"
-#include "App.h"
-#include "App.cpp"
-#include "Game/Game.cpp"
-#include "Game/Map/Map.cpp"
-#include "Game/Abstractions/Actor.cpp"
-#include "Game/Abstractions/Cell.cpp"
-#include "Game/Food/Food.cpp"
-#include "Game/Snake/Snake.cpp"
-#include "Menu/MainMenu.cpp"
-#include "Math/IntVector2.cpp"
+#include "AppObjects.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace ConsoleSnakeTests
 {
-
 	TEST_CLASS(ConsoleSnakeTestApp)
 	{
 	public:
-		App sgapp;
-		std::shared_ptr<MainMenu> menu;
-		std::shared_ptr<Game> game;
-
-		IntVector2 mapSize = IntVector2(10, 10);
-		IntVector2 snakePos = IntVector2(5, 5);
-
 		TEST_METHOD_INITIALIZE(Init)
 		{
-			SnakeGameParams params{ mapSize, snakePos };
-			sgapp = App(params);
+			static IntVector2 mapSize = IntVector2(10, 10);
+			static IntVector2 snakePos = IntVector2(5, 5);
+			SnakeGameParams params = { mapSize, snakePos };
+			SGApp = std::make_shared<App>(params);
 		}
 
 		BEGIN_TEST_METHOD_ATTRIBUTE(TestAppCtor)
@@ -39,14 +23,14 @@ namespace ConsoleSnakeTests
 
 		TEST_METHOD(TestAppCtor)
 		{
-			menu = std::static_pointer_cast<MainMenu>(sgapp.GetMainMenu());
-			if (!menu)
+			Menu = std::dynamic_pointer_cast<MainMenu>(SGApp->GetMainMenu());
+			if (!Menu)
 			{
 				Assert::Fail(L"Failed to cast App.MainMenu (AppComponent-type) to MainMenu-type");
 			}
 
-			game = std::static_pointer_cast<Game>(sgapp.GetMainMenu());
-			if (!game)
+			Game = std::dynamic_pointer_cast<class Game>(SGApp->GetSnakeGame());
+			if (!Game)
 			{
 				Assert::Fail(L"Failed to cast App.Game (AppComponent-type) to Game-type");
 			}
