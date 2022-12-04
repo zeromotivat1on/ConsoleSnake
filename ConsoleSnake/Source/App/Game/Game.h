@@ -43,7 +43,7 @@ private:
 	std::atomic_int Hours = 0;
 
 public:
-	enum class GameState GetGameState() const { return GameState; }
+	enum class GameState GetState() const { return GameState; }
 
 	// Get app state that corresponds to game state.
 	AppState GetCorrespondingAppState() const;

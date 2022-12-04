@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <chrono>
+#include <mutex>
 #include <thread>
 #include <atomic>
 #include <algorithm>

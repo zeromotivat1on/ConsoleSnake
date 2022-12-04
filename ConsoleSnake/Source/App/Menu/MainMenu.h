@@ -25,7 +25,7 @@ private:
 	int OffsetY = 1;
 
 public:
-	enum class MainMenuState GetMainMenuState() const { return MainMenuState; }
+	enum class MainMenuState GetState() const { return MainMenuState; }
 
 	// Get app state that corresponds to main menu state.
 	virtual AppState GetCorrespondingAppState() const override;

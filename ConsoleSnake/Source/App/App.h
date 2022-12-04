@@ -28,6 +28,8 @@ private:
 	std::chrono::microseconds DeltaTime = std::chrono::microseconds(TICK_MS);
 
 public:
+	enum class AppState GetState() const { return AppState; }
+
 	std::shared_ptr<AppComponent> GetMainMenu() const { return MainMenu; }
 	std::shared_ptr<AppComponent> GetSnakeGame() const { return SnakeGame; }
 
