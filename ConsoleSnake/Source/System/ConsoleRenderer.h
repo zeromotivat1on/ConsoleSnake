@@ -16,9 +16,6 @@ public:
 	 */
 	static void RenderVertically(std::stringstream& sstream, const IntVector2& pos = IntVector2::ZeroVector)
 	{
-		static std::mutex mutex;
-		std::lock_guard<std::mutex> guard(mutex);
-
 		int x = pos.X;
 		int y = pos.Y;
 
